@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button, FlatList, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -10,6 +11,14 @@ import AddTaskScreen from './src/Components/AddTask'
 const Tab = createBottomTabNavigator();
 
 export default function App() { 
+  let dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('In Fetch Tasks');
+    dispatch({
+      type: 'FETCH_TASKS'
+    })
+  });
 
   return (
     <NavigationContainer>
