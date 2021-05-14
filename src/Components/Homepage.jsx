@@ -1,8 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+// import { StatusBar } from 'expo-status-bar';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux'
 import { Button, FlatList, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import { fetchTasks } from '../../redux/task/taskActions'
 
 const styles = StyleSheet.create({
   container: {
@@ -35,12 +36,32 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function HomeScreen() {
+const mapStateToProps = state => {
+  return {
+    taskData: state.taskReducer
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchTasks: () => dispatch(fetchTasks())
+  }
+}
+
+function HomeScreen({taskData,fetchTasks}) {
 
   const [isEnabled, setIsEnabled] = useState(false);
   const [list, setList] = useState([]);
 
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  useEffect(() => {
+    fetchTasks()
+  }, [])
+
+  const handleGetTasks = () => {
+    console.log('taskData', taskData);
+  }
 
   return (
     <View style={styles.container}>
@@ -48,12 +69,14 @@ export default function HomeScreen() {
       
       <Text style={styles.title}>My Tasks</Text>
 
+      <Button title="Get Tasks" onPress={handleGetTasks} />
+
       <FlatList
         style={styles.listView}
-        data={list}
+        data={taskData}
         renderItem={({item}) => 
         <View style={styles.listItem}> 
-          <Text style={styles.item}>{item}</Text>
+          <Text style={styles.item} key={item.id}>{item.name}</Text>
           <Switch
             trackColor={{ false: "#767577", true: "#81b0ff" }}
             thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
@@ -67,4 +90,10 @@ export default function HomeScreen() {
     </View>
   );
 }
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HomeScreen)
 

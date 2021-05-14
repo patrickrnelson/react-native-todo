@@ -15,4 +15,16 @@ router.get('/', (req, res) => {
   }
 )
 
+router.post('/', (req, res) => {
+  console.log('In POST new task endpoint. req.body:', req.body);
+  pool.query('INSERT INTO "tasks" ("name") VALUES ($1)', [req.body.newTask])
+    .then((result) => {
+      res.sendStatus(201)
+    })
+    .catch((err) => {
+      console.log('Error in POST new task');
+      res.sendStatus(500)
+    })
+})
+
 module.exports = router;

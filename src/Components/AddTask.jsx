@@ -1,8 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
+// import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Button, FlatList, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import { connect, useSelector, useDispatch } from 'react-redux'
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
+import { newTask } from '../../redux/task/taskActions'
+import { addTask } from '../../redux/task/taskActions'
 
 const styles = StyleSheet.create({
   container: {
@@ -35,17 +39,23 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function AddTaskScreen() {
+// const mapDispatchToProps = (newTask) => {
+//   return {
+//     addTask: addTask(newTask)
+//   }
+// }
+
+function AddTaskScreen({navigation}) {
+  const dispatch = useDispatch();
 
   const [text, setText] = useState('');
-  const [list, setList] = useState([]);
 
-  const handleSubmit = () => {
-    console.log('in Add. Text:', text);
-    list.push(text)
-    // setList([...list, text])
+  const handleSubmit = (task) => {
+    console.log('in Add. Text:', task);
+    dispatch(newTask(task));
+    dispatch(addTask());
     setText('')
-    console.log('list', list);
+    navigation.navigate('Home')
   }
   
   return (
@@ -58,8 +68,10 @@ export default function AddTaskScreen() {
         onChangeText={text => setText(text)}
         defaultValue={text}
       />
-      <Button title='Add' onPress={handleSubmit}/>
+      <Button title='Add' onPress={() => handleSubmit(text)}/>
     </View>
   );
 }
+
+export default AddTaskScreen;
 
