@@ -34,18 +34,6 @@ export const addTask = () => {
   }
 }
 
-// export const addTask = () => async(dispatch, getState) => {
-//   const newTask = getState().newTaskReducer;
-//   console.log('newTask', newTask);
-//   await fetch('http://172.20.10.4:5000/api/task', {
-//     // console.log('newTask', text);
-//     // dispatch(fetchUsersRequest())
-//     method: 'POST',
-//     body: newTask
-//   })
-//   dispatch(fetchTasks())
-// }
-
 export const setTasks = tasks => {
   return {
     type: 'SET_TASKS',

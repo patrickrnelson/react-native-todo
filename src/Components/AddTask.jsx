@@ -1,8 +1,8 @@
 // import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+// import { NavigationContainer } from '@react-navigation/native';
 
 
 import { newTask } from '../../redux/task/taskActions'

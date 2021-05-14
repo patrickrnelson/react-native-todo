@@ -1,7 +1,7 @@
 // import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
-import { Button, FlatList, StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import { Button, FlatList, StyleSheet, Switch, Text, View } from 'react-native';
 
 import { fetchTasks } from '../../redux/task/taskActions'
 
