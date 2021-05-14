@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 // import { NavigationContainer } from '@react-navigation/native';
 
-
 import { newTask } from '../../redux/task/taskActions'
 import { addTask } from '../../redux/task/taskActions'
 

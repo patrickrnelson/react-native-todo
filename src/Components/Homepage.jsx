@@ -1,7 +1,8 @@
 // import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
-import { Button, FlatList, StyleSheet, Switch, Text, View } from 'react-native';
+import { Button, CheckBox, FlatList, StyleSheet, Text, View } from 'react-native';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 import { fetchTasks } from '../../redux/task/taskActions'
 
@@ -50,18 +51,11 @@ const mapDispatchToProps = dispatch => {
 
 function HomeScreen({taskData,fetchTasks}) {
 
-  const [isEnabled, setIsEnabled] = useState(false);
-  const [list, setList] = useState([]);
-
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const [isSelected, setSelection] = useState(false);
 
   useEffect(() => {
     fetchTasks()
   }, [])
-
-  const handleGetTasks = () => {
-    console.log('taskData', taskData);
-  }
 
   return (
     <View style={styles.container}>
@@ -69,20 +63,17 @@ function HomeScreen({taskData,fetchTasks}) {
       
       <Text style={styles.title}>My Tasks</Text>
 
-      <Button title="Get Tasks" onPress={handleGetTasks} />
-
       <FlatList
         style={styles.listView}
         data={taskData}
         renderItem={({item}) => 
         <View style={styles.listItem}> 
           <Text style={styles.item} key={item.id}>{item.name}</Text>
-          <Switch
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
+          <BouncyCheckbox
+            key={item.id}
+            isChecked={item.isCompleted}
+            onValueChange={setSelection} // We will need to make an update to the DB
+            style={styles.checkbox}
           />
         </View>
           }
