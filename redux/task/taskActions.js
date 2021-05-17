@@ -4,7 +4,7 @@ export const fetchTasks = () => {
   return (dispatch) => {
     // dispatch(fetchUsersRequest())
     axios
-      .get('http://172.20.10.4:5000/api/task')
+      .get('http://192.168.0.24:5000/api/task')
       .then(response => {
         // response.data is the users
         const tasks = response.data
@@ -23,7 +23,7 @@ export const addTask = () => {
     const newTask = getState().newTaskReducer
     console.log('newTask', newTask)
     axios
-      .post('http://172.20.10.4:5000/api/task', {'newTask': newTask})
+      .post('http://192.168.0.24:5000/api/task', {'newTask': newTask})
       .then(response => {
         console.log('POST success', response)
         dispatch(fetchTasks())

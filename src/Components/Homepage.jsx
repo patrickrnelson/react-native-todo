@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   listItem: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%'
   }
 });

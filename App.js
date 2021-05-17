@@ -3,6 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
 import store from './redux/store'
 import HomeScreen from './src/Components/Homepage'
@@ -16,10 +17,29 @@ function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Add" component={AddTaskScreen} />
-          <Tab.Screen name="Users" component={UserScreen} />
+        <Tab.Navigator
+          tabBarOptions={{
+            activeTintColor: '#42f44b',
+          }}>
+          <Tab.Screen 
+            name="Home"
+            component={HomeScreen} 
+            options={{
+              tabBarLabel: 'Home',
+              tabBarIcon: ({focused, color, size}) => (
+                <Ionicons name="ios-home" color='turquoise' size='30' />
+              ),
+            }} />
+          <Tab.Screen 
+            name="New" 
+            component={AddTaskScreen}
+            options={{
+              tabBarLabel: 'New',
+              tabBarIcon: ({focused, color, size}) => (
+                <Ionicons name="ios-add" color='turquoise' size='35' />
+              ),
+            }} />
+          {/* <Tab.Screen name="Users" component={UserScreen} /> */}
         </Tab.Navigator>
       </NavigationContainer>
     </Provider>
